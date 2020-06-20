@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossScript : MonoBehaviour
 {
 
-    public static int health = 4000;
+    public static float health = 4000.0f;
     // Start is called before the first frame update
     void Start()
     {
