@@ -20,8 +20,8 @@ public class CameraControl : MonoBehaviour
     }
 
 
-    public float speedH = 2.0f;
-    public float speedV = 2.0f;
+    public float speedH = 2.5f;
+    public float speedV = 2.5f;
 
     private float yaw = 0.0f;
     private float pitch = 0.0f;
@@ -38,22 +38,7 @@ public class CameraControl : MonoBehaviour
             transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-        }
-
-
-        if (Input.GetMouseButtonDown(1))
-        {
-
-            Cursor.visible = !Cursor.visible;
-            if (Cursor.lockState == CursorLockMode.Locked)
-                Cursor.lockState = CursorLockMode.None;
-            else
-                Cursor.lockState = CursorLockMode.Locked;
-
-        }
+        
 
 
 
