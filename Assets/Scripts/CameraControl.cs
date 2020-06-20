@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 public class CameraControl : MonoBehaviour
 {
     // Start is called before the first frame update
+    private float yaw;
+    private float pitch;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        yaw = Camera.main.transform.eulerAngles.y;
+        pitch = Camera.main.transform.eulerAngles.x;
 
         //for (int i = 0; i < Mathf.Pow(SceneScript.cubeDim, 3); i++)
         //{
@@ -23,8 +28,7 @@ public class CameraControl : MonoBehaviour
     public float speedH = 2.5f;
     public float speedV = 2.5f;
 
-    private float yaw = 0.0f;
-    private float pitch = 0.0f;
+
 
 
     void Update()
@@ -38,7 +42,7 @@ public class CameraControl : MonoBehaviour
             transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
         }
 
-        
+
 
 
 
