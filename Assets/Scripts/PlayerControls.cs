@@ -9,6 +9,10 @@ public class PlayerControls : MonoBehaviour
     public float shotTime;
     public static string bulletName = "bullet";
 
+    public float shotDelay = 0.4f;
+
+    public GameObject[] bulletPrefabs;
+
     enum bulletType
     {
         Fire=0, Water, Earth
@@ -90,17 +94,22 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (Time.time - shotTime > 0.4f)
+            if (Time.time - shotTime > shotDelay)
             {
                 shotTime = Time.time;
-                GameObject currentBullet;
-                string type = curBulletType.ToString();
-                string fullName = "OG" + type + "Bullet";
-                Debug.Log("searching for " + fullName);
-                currentBullet = GameObject.Instantiate<GameObject>(GameObject.Find(fullName));
-                currentBullet.transform.rotation = Camera.main.transform.rotation;
-                currentBullet.transform.position = Camera.main.transform.position;
-                currentBullet.transform.name = bulletName + counter;
+                //GameObject currentBullet;
+                //string type = curBulletType.ToString();
+                //string fullName = "OG" + type + "Bullet";
+                Instantiate(bulletPrefabs[(int)curBulletType], Camera.main.transform.position,
+                    Camera.main.transform.rotation);
+                //newBullet.transform.name = bulletName + counter;
+                //Renderer rend = newBullet.GetComponent<Renderer>();
+                //rend.material = 
+                //Debug.Log("searching for " + fullName);
+                //currentBullet = GameObject.Instantiate<GameObject>(GameObject.Find(fullName));
+                //currentBullet.transform.rotation = Camera.main.transform.rotation;
+                //currentBullet.transform.position = Camera.main.transform.position;
+                //currentBullet.transform.name = bulletName + counter;
                 counter++;
                 //BulletScript.bulletList.Add(currentBullet);
 
@@ -116,7 +125,7 @@ public class PlayerControls : MonoBehaviour
             curBulletType = (bulletType)(((int)curBulletType + (int)(Input.mouseScrollDelta.y)) % typesLength);
             if ((int)curBulletType == -1)
                 curBulletType = (bulletType)(typesLength - 1);
-            Debug.Log("switched to " + curBulletType.ToString() + "Bullet");
+            //Debug.Log("switched to " + curBulletType.ToString() + "Bullet");
 
         }
         if (Input.GetMouseButtonDown(1))

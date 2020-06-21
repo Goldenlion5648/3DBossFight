@@ -12,9 +12,12 @@ public class CameraControl : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        var bossPos = GameObject.Find("BossBody").transform.position;
+        var camPos = transform.position;
 
-        yaw = Camera.main.transform.eulerAngles.y;
-        pitch = Camera.main.transform.eulerAngles.x;
+        Camera.main.transform.forward = new Vector3(bossPos.x - camPos.x, bossPos.y - camPos.y, bossPos.z - camPos.z);
+        yaw = transform.eulerAngles.x;
+        pitch = transform.eulerAngles.y;
 
         //for (int i = 0; i < Mathf.Pow(SceneScript.cubeDim, 3); i++)
         //{
@@ -24,18 +27,32 @@ public class CameraControl : MonoBehaviour
         //Cursor.visible = false;
     }
 
-    public float speedH = 2.5f;
-    public float speedV = 2.5f;
+    public float speedH = 3.0f;
+    public float speedV = 4.0f;
 
     void Update()
     {
-        if (Cursor.lockState == CursorLockMode.Locked)
+        if (Cursor.lockState == CursorLockMode.Locked && Cursor.visible == false)
         {
+            //yaw = transform.eulerAngles.x;
+            //pitch = transform.eulerAngles.y;
             yaw += speedH * Input.GetAxis("Mouse X");
-            if (pitch - speedV * Input.GetAxis("Mouse Y") > -90 && pitch - speedV * Input.GetAxis("Mouse Y") < 90)
-                pitch -= speedV * Input.GetAxis("Mouse Y");
+            //if (pitch - speedV * Input.GetAxis("Mouse Y") > -90 && pitch - speedV * Input.GetAxis("Mouse Y") < 90)
+            //Debug.Log("pitch " + pitch);
 
-            transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+            //if (pitch < 0 && pitch + speedV * Input.GetAxis("Mouse Y") < 0)
+            //    pitch += speedV * Input.GetAxis("Mouse Y");
+
+            //if (pitch > 180 && pitch + speedV * Input.GetAxis("Mouse Y") > 180)
+            pitch += speedV * Input.GetAxis("Mouse Y");
+            pitch = pitch % 360;
+            pitch = Mathf.Max(pitch, 90);
+            pitch = Mathf.Min(pitch, 270);
+
+            //Debug.Log("after pitch " + pitch);
+
+            transform.eulerAngles = new Vector3(pitch, yaw, 180.0f);
+
         }
 
 
