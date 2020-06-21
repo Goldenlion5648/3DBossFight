@@ -24,12 +24,8 @@ public class CameraControl : MonoBehaviour
         //Cursor.visible = false;
     }
 
-
     public float speedH = 2.5f;
     public float speedV = 2.5f;
-
-
-
 
     void Update()
     {
@@ -43,10 +39,6 @@ public class CameraControl : MonoBehaviour
         }
 
 
-
-
-
     }
-
 
 }

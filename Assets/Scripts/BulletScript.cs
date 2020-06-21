@@ -6,7 +6,7 @@ public class BulletScript : MonoBehaviour
 {
 
     //public static List<GameObject> bulletList;
-    public float bulletSpeed = 9.0f;
+    public float bulletSpeed = 10.0f;
     public float bulletDamage = 5.0f;
 
     public Camera playerView;
@@ -29,13 +29,14 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other + "2");
-        Debug.Log(other.tag);
+        //Debug.Log(other + "2");
+        //Debug.Log(other.tag);
         if (other.tag == "enemy")
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             BossScript.health -= bulletDamage;
             Debug.Log("new boss health" + BossScript.health);
+            GameObject.Destroy(GameObject.Find(transform.name));
         }
 
     }
@@ -46,11 +47,10 @@ public class BulletScript : MonoBehaviour
 
         transform.position += transform.forward * bulletSpeed * Time.deltaTime;
         
-        if (Vector3.Distance(transform.position, playerView.transform.position) > 25.0f && transform.name != "OGBullet")
+        if (Vector3.Distance(transform.position, playerView.transform.position) > 25.0f && transform.name.Contains("OG") == false)
         {
-            Debug.Log("destroyed " + this.name);
-            GameObject.Destroy(GameObject.Find(transform.name))
-                ;
+            //Debug.Log("destroyed " + this.name);
+            GameObject.Destroy(GameObject.Find(transform.name));
         }
             //for (int i = 0; i < bulletList.Count; i++)
         //{
