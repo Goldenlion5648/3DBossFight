@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public float movementSpeed = 6.0f;
+    public float movementSpeed = 10.0f;
 
     public float shotTime;
     public static string bulletName = "bullet";
@@ -15,13 +15,13 @@ public class PlayerControls : MonoBehaviour
 
     enum bulletType
     {
-        Fire=0, Water, Earth
+        Fire = 0, Water, Earth
     }
 
     int typesLength = (int)System.Enum.GetNames(typeof(bulletType)).Length;
 
     bulletType curBulletType = bulletType.Fire;
-    
+
     public float time;
 
     int counter = 0;
@@ -87,33 +87,16 @@ public class PlayerControls : MonoBehaviour
         movement();
         quitGame();
 
-
-
-        //Debug.Log("shot time: " + shotTime);
-        //Debug.Log("Time.time: " + Time.time) ;
-
         if (Input.GetMouseButton(0))
         {
             if (Time.time - shotTime > shotDelay)
             {
                 shotTime = Time.time;
-                //GameObject currentBullet;
-                //string type = curBulletType.ToString();
-                //string fullName = "OG" + type + "Bullet";
+
                 Instantiate(bulletPrefabs[(int)curBulletType], Camera.main.transform.position,
                     Camera.main.transform.rotation);
-                //newBullet.transform.name = bulletName + counter;
-                //Renderer rend = newBullet.GetComponent<Renderer>();
-                //rend.material = 
-                //Debug.Log("searching for " + fullName);
-                //currentBullet = GameObject.Instantiate<GameObject>(GameObject.Find(fullName));
-                //currentBullet.transform.rotation = Camera.main.transform.rotation;
-                //currentBullet.transform.position = Camera.main.transform.position;
-                //currentBullet.transform.name = bulletName + counter;
-                counter++;
-                //BulletScript.bulletList.Add(currentBullet);
 
-                //Debug.Log("spawned bullet");
+                counter++;
 
             }
 

@@ -32,7 +32,7 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        if (Cursor.lockState == CursorLockMode.Locked && Cursor.visible == false)
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
             //yaw = transform.eulerAngles.x;
             //pitch = transform.eulerAngles.y;

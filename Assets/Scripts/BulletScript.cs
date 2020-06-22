@@ -8,7 +8,7 @@ public class BulletScript : MonoBehaviour
 {
 
     //public static List<GameObject> bulletList;
-    private float bulletSpeed = 20.0f;
+    private float bulletSpeed = 40.0f;
     private float bulletDamage = 5.0f;
 
     public Camera playerView;
@@ -83,7 +83,7 @@ public class BulletScript : MonoBehaviour
         if (Vector3.Distance(transform.position, playerView.transform.position) > 25.0f && transform.name.Contains("OG") == false)
         {
             //Debug.Log("destroyed " + this.name);
-            GameObject.Destroy(GameObject.Find(transform.name));
+            GameObject.Destroy(gameObject);
         }
         //for (int i = 0; i < bulletList.Count; i++)
         //{
