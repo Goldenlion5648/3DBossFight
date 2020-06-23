@@ -6,6 +6,8 @@ public class BossScript : MonoBehaviour
 {
 
     public static float health = 4000.0f;
+    public static int hitCooldown = 0;
+    public static int cooldownWhenHit = 3;
     float lastJump;
     // Start is called before the first frame update
     float rotateSpeed = .2f;
@@ -16,6 +18,14 @@ public class BossScript : MonoBehaviour
     {
         lastJump = 4;
         //InvokeRepeating("rotate", .5f, .02f);
+
+        InvokeRepeating("hitCooldownUpdater", 0, .1f);
+
+    }
+
+    void hitCooldownUpdater()
+    {
+        hitCooldown = Mathf.Max(hitCooldown - 1, 0);
     }
 
     void move()
@@ -25,7 +35,7 @@ public class BossScript : MonoBehaviour
 
     void rotate()
     {
-        transform.Rotate(new Vector3(0f, spinAmount, 0f), Space.World);
+
 
 
     }
@@ -37,12 +47,14 @@ public class BossScript : MonoBehaviour
         //rotate();
         if (Input.GetKey(KeyCode.C))
         {
-            rotate();
+            //rotate();
+            transform.Rotate(new Vector3(0f, spinAmount, 0f), Space.World);
             if (Time.time - spinTimer > spinFrequency)
             {
 
                 spinTimer = Time.time;
-                spinFrequency -= .1f;
+                spinFrequency = Mathf.Max(spinFrequency - .6f, .25f);
+                spinAmount = Mathf.Min(spinAmount + .4f, 7f);
                 //spinAmount += .2f;
             }
         }

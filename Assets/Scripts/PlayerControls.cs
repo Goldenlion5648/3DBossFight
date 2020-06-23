@@ -11,6 +11,9 @@ public class PlayerControls : MonoBehaviour
 
     public float shotDelay = 0.4f;
 
+    float health;
+    float maxHealth = 100;
+
     public GameObject[] bulletPrefabs;
 
     enum bulletType
@@ -31,6 +34,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         shotTime = Time.time;
+        health = maxHealth;
     }
 
     void quitGame()
@@ -79,28 +83,8 @@ public class PlayerControls : MonoBehaviour
         //Debug.Log("Pos: " + pos);
     }
 
-    // Update is called once per frame
-    void Update()
+    void changeBulletType()
     {
-        time = Time.deltaTime;
-
-        movement();
-        quitGame();
-
-        if (Input.GetMouseButton(0))
-        {
-            if (Time.time - shotTime > shotDelay)
-            {
-                shotTime = Time.time;
-
-                Instantiate(bulletPrefabs[(int)curBulletType], Camera.main.transform.position,
-                    Camera.main.transform.rotation);
-
-                counter++;
-
-            }
-
-        }
         int scrollAmount = (int)Input.mouseScrollDelta.y;
         if (scrollAmount != 0)
         {
@@ -111,6 +95,26 @@ public class PlayerControls : MonoBehaviour
             //Debug.Log("switched to " + curBulletType.ToString() + "Bullet");
 
         }
+    }
+
+    void fireBullet()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            if (Time.time - shotTime > shotDelay)
+            {
+                shotTime = Time.time;
+
+                Instantiate(bulletPrefabs[(int)curBulletType], Camera.main.transform.position,
+                    Camera.main.transform.rotation);
+
+                counter++;
+            }
+        }
+    }
+
+    void relockToScreen()
+    {
         if (Input.GetMouseButtonDown(1))
         {
 
@@ -121,6 +125,31 @@ public class PlayerControls : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
 
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if (collision.collider. == "enemy")
+        //{
+        //    health -= 3;
+        //    Debug.Log("health " + health);
+
+        //}
+        //collision.collider
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        time = Time.deltaTime;
+
+        movement();
+        quitGame();
+
+        fireBullet();
+        changeBulletType();
+        relockToScreen();
+
 
     }
+
 }

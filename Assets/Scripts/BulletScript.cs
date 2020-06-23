@@ -33,12 +33,14 @@ public class BulletScript : MonoBehaviour
 
     //    }
     //}
-
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other + "2");
         //Debug.Log(other.tag);
-        if (other.tag == "enemy")
+
+        if (!gameObject)
+            return;
+        if (other.tag == "enemy" && BossScript.hitCooldown == 0)
         {
             //Debug.Log("hit");
             BossScript.health -= bulletDamage;
@@ -53,7 +55,7 @@ public class BulletScript : MonoBehaviour
             floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
             //floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
 
-
+            BossScript.hitCooldown = BossScript.cooldownWhenHit;
             GameObject.Destroy(gameObject);
 
 
@@ -77,7 +79,27 @@ public class BulletScript : MonoBehaviour
         //    lastDebug = Time.time;
         //}
 
+
+        if (Time.time - lastDebug >= 1)
+        {
+
+            Debug.Log("forward " + transform.forward);
+            Debug.Log("bulletSpeed " + bulletSpeed);
+            Debug.Log("time " + Time.deltaTime);
+            Debug.Log(transform.forward * bulletSpeed * Time.deltaTime * 100000);
+            Debug.Log(transform.name);
+            Debug.Log(transform.position);
+
+            lastDebug = Time.time;
+        }
+        //Debug.Log("transform.forward " + transform.forward);
+        //Debug.Log(bulletSpeed);
+        //Debug.Log(Time.deltaTime);
+
+
         transform.position += transform.forward * bulletSpeed * Time.deltaTime;
+        //GetComponent<Rigidbody>().AddExplosionForce(100f, transform.position, 40f);
+
 
 
         if (Vector3.Distance(transform.position, playerView.transform.position) > 25.0f && transform.name.Contains("OG") == false)
