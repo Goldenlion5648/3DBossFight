@@ -48,7 +48,7 @@ public class BulletScript : MonoBehaviour
 
 
             var floater = Instantiate(floatingTextPrefab, transform.position,
-                Quaternion.LookRotation(Camera.main.transform.forward), other.transform);
+                Quaternion.LookRotation(Camera.main.transform.forward));
 
             floater.GetComponent<TextMeshPro>().text = bulletDamage.ToString();
             //floater.GetComponent<TextMeshPro>().color.a = 
@@ -56,7 +56,7 @@ public class BulletScript : MonoBehaviour
             //floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
 
             BossScript.hitCooldown = BossScript.cooldownWhenHit;
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
 
 
         }

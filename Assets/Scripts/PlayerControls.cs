@@ -150,9 +150,9 @@ public class PlayerControls : MonoBehaviour
 
         var cam = Camera.main.transform;
 
-        Debug.Log("camera pos " + cam.position);
+        //Debug.Log("camera pos " + cam.position);
 
-        Debug.Log("transform pos " + transform.position);
+        //Debug.Log("transform pos " + transform.position);
 
 
 

@@ -84,7 +84,7 @@ public class BossScript : MonoBehaviour
             horPos.y -= 1f;
             //var explosionPos = transform.position + horPos;
             var explosionPos = transform.position - new Vector3(0, 1, 0);
-            Debug.Log(explosionPos);
+            //Debug.Log(explosionPos);
 
             GetComponent<Rigidbody>().AddExplosionForce(100f, explosionPos, 40f);
             moveTowardPlayer(true);
