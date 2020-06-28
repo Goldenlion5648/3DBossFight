@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Code by Colter B
 public class PlayerControls : MonoBehaviour
 {
     public float movementSpeed = 10.0f;
@@ -126,15 +126,41 @@ public class PlayerControls : MonoBehaviour
 
         }
     }
+    //void tr
+
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.collider. == "enemy")
-        //{
-        //    health -= 3;
-        //    Debug.Log("health " + health);
+        Debug.Log(collision.gameObject.name);
+        if (collision.transform.tag == "enemy")
+        {
+            health -= 3;
+            Debug.Log("health " + health);
 
-        //}
+        }
         //collision.collider
+    }
+
+    void enemyDetection()
+    {
+        //var collider = GetComponent<Collider>();
+        //bool isColliding = Physics.CheckCapsule(collider.bounds.center, new Vector3(collider.bounds.center.x,
+        //    collider.bounds.center.y, collider.bounds.center.z), .3f,);
+
+        LayerMask mask = LayerMask.GetMask("Enemy");
+
+        var cam = Camera.main.transform;
+
+        Debug.Log("camera pos " + cam.position);
+
+        Debug.Log("transform pos " + transform.position);
+
+
+
+        bool nearEnemy = Physics.Raycast(cam.position, cam.forward, 20.0f, mask);
+
+        //Debug.Log("nearEnemy" + nearEnemy);
+
+        //Debug.Log(isColliding);
     }
 
     // Update is called once per frame
@@ -148,6 +174,7 @@ public class PlayerControls : MonoBehaviour
         fireBullet();
         changeBulletType();
         relockToScreen();
+        enemyDetection();
 
 
     }

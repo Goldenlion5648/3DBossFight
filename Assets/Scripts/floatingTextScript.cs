@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Code by Colter B
 public class floatingTextScript : MonoBehaviour
 {
 
@@ -16,6 +16,6 @@ public class floatingTextScript : MonoBehaviour
     void Update()
     {
 
-        
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Code by Colter B
 public class BossScript : MonoBehaviour
 {
 
@@ -19,25 +20,35 @@ public class BossScript : MonoBehaviour
         lastJump = 4;
         //InvokeRepeating("rotate", .5f, .02f);
 
-        InvokeRepeating("hitCooldownUpdater", 0, .1f);
+        InvokeRepeating("cooldownUpdater", 0, .1f);
 
     }
 
-    void hitCooldownUpdater()
+    void cooldownUpdater()
     {
         hitCooldown = Mathf.Max(hitCooldown - 1, 0);
-    }
-
-    void move()
-    {
-
     }
 
     void rotate()
     {
 
+        transform.Rotate(new Vector3(0f, spinAmount, 0f), Space.World);
+        if (Time.time - spinTimer > spinFrequency)
+        {
 
+            spinTimer = Time.time;
+            spinFrequency = Mathf.Max(spinFrequency - .6f, .25f);
+            spinAmount = Mathf.Min(spinAmount + .4f, 7f);
+            //spinAmount += .2f;
+        }
 
+    }
+
+    void moveTowardPlayer(bool isAirAttack)
+    {
+        var power = isAirAttack ? 3 : 7;
+        GetComponent<Rigidbody>().AddForce((new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z) -
+                new Vector3(transform.position.x, 0, transform.position.z)) * power);
     }
 
 
@@ -47,16 +58,14 @@ public class BossScript : MonoBehaviour
         //rotate();
         if (Input.GetKey(KeyCode.C))
         {
-            //rotate();
-            transform.Rotate(new Vector3(0f, spinAmount, 0f), Space.World);
-            if (Time.time - spinTimer > spinFrequency)
-            {
+            rotate();
 
-                spinTimer = Time.time;
-                spinFrequency = Mathf.Max(spinFrequency - .6f, .25f);
-                spinAmount = Mathf.Min(spinAmount + .4f, 7f);
-                //spinAmount += .2f;
-            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            moveTowardPlayer(false);
+
         }
 
 
@@ -78,8 +87,8 @@ public class BossScript : MonoBehaviour
             Debug.Log(explosionPos);
 
             GetComponent<Rigidbody>().AddExplosionForce(100f, explosionPos, 40f);
-            GetComponent<Rigidbody>().AddForce((new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z) -
-                new Vector3(transform.position.x, 0, transform.position.z)) * 3);
+            moveTowardPlayer(true);
+
             //transform.position +=
             //    (new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z) -
             //    new Vector3(transform.position.x, 0, transform.position.z)) / 10;

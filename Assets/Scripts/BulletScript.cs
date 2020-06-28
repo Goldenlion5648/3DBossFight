@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+//Code by Colter B
 public class BulletScript : MonoBehaviour
 {
 
@@ -98,6 +98,7 @@ public class BulletScript : MonoBehaviour
 
 
         transform.position += transform.forward * bulletSpeed * Time.deltaTime;
+        //GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed * Time.deltaTime;
         //GetComponent<Rigidbody>().AddExplosionForce(100f, transform.position, 40f);
 
 
