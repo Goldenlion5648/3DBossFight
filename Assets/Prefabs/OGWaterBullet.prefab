@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4144265998868026066}
   - component: {fileID: 4144265998868026067}
   - component: {fileID: 4144265998868026068}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OGWaterBullet
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,10 @@ MonoBehaviour:
   playerView: {fileID: 0}
   floatingTextPrefab: {fileID: 768892595920657671, guid: 5c4bd9b0d5271ba42891c8c0c7501b00,
     type: 3}
+  bossHit:
+    m_PersistentCalls:
+      m_Calls: []
+  boss: {fileID: 0}
 --- !u!54 &4144265998868026068
 Rigidbody:
   m_ObjectHideFlags: 0

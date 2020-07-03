@@ -21,7 +21,7 @@ public class floatingTextScript : MonoBehaviour
     {
         transform.LookAt(player, Vector3.up);
         transform.Rotate(new Vector3(0, 180, 0));
-        Debug.Log("new looking" + transform.rotation);
+        //Debug.Log("new looking" + transform.rotation);
 
 
         //Debug.Log(-12 % 5);

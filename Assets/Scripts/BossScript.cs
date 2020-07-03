@@ -1,33 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 //Code by Colter B
-public class BossScript : MonoBehaviour
+public class BossScript : Entity
 {
 
-    public static float health = 4000.0f;
-    public static int hitCooldown = 0;
-    public static int cooldownWhenHit = 3;
+    //public static float startingHealth = 4000.0f;
+    //public static float health = 4000.0f;
+    //public static int hitCooldown = 0;
+    //public static int cooldownWhenHit = 3;
     float lastJump;
     // Start is called before the first frame update
     float rotateSpeed = .2f;
     float spinTimer = 0f;
     float spinFrequency = .5f;
     float spinAmount = 2f;
+
+    public UnityEvent bossHit;
     void Start()
     {
         lastJump = 4;
         //InvokeRepeating("rotate", .5f, .02f);
 
         InvokeRepeating("cooldownUpdater", 0, .1f);
+        this.Initialize(100, 50f);
+
+        //this.ini
+
 
     }
 
-    void cooldownUpdater()
-    {
-        hitCooldown = Mathf.Max(hitCooldown - 1, 0);
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "bullet")
+    //    {
+    //        this.takeDamage(5);
+    //        Debug.Log("New Boss health" + this.health);
+    //        Destroy(collision.gameObject);
+    //    }
+    //}
+
+    //public void takeDamage(float damageToTake)
+    //{
+    //    health -= damageToTake;
+    //    //Debug.Log("new boss health" + BossScript.health);
+
+
+    //    hitCooldown = cooldownWhenHit;
+    //}
+
+    //void cooldownUpdater()
+    //{
+    //    hitCooldown = Mathf.Max(hitCooldown - 1, 0);
+    //}
 
     void rotate()
     {
@@ -50,7 +77,6 @@ public class BossScript : MonoBehaviour
         GetComponent<Rigidbody>().AddForce((new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z) -
                 new Vector3(transform.position.x, 0, transform.position.z)) * power);
     }
-
 
     // Update is called once per frame
     void Update()

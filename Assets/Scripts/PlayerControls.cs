@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 //Code by Colter B
-public class PlayerControls : MonoBehaviour
+public class PlayerControls : Entity
 {
     public float movementSpeed = 10.0f;
 
@@ -11,10 +13,10 @@ public class PlayerControls : MonoBehaviour
 
     public float shotDelay = 0.4f;
 
-    float health;
-    float maxHealth = 100;
+    public Image healthBarForeground, healtBarBackground;
 
     public GameObject[] bulletPrefabs;
+
 
     enum bulletType
     {
@@ -34,7 +36,18 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         shotTime = Time.time;
-        health = maxHealth;
+        health = startingHealth;
+
+
+
+    }
+
+    void healthBarPositioning()
+    {
+        var foreground = healthBarForeground.rectTransform;
+        var back = healtBarBackground.rectTransform;
+        foreground.sizeDelta = new Vector2(back.sizeDelta.x * (health / startingHealth), foreground.sizeDelta.y);
+
     }
 
     void quitGame()
@@ -130,7 +143,7 @@ public class PlayerControls : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         if (collision.transform.tag == "enemy")
         {
             health -= 3;
@@ -156,7 +169,10 @@ public class PlayerControls : MonoBehaviour
 
 
 
-        bool nearEnemy = Physics.Raycast(cam.position, cam.forward, 20.0f, mask);
+        bool nearEnemy = Physics.Raycast(cam.position, cam.forward, 1.0f, mask);
+        if (nearEnemy)
+            Debug.Log("nearEnemy: " + nearEnemy);
+
 
         //Debug.Log("nearEnemy" + nearEnemy);
 

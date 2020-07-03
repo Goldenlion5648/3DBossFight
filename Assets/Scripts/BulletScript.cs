@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 //Code by Colter B
 public class BulletScript : MonoBehaviour
 {
@@ -17,17 +18,29 @@ public class BulletScript : MonoBehaviour
 
     private float lastDebug;
 
+    public UnityEvent bossHit;
+
+    public Entity boss;
+
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         lastDebug = Time.time;
         playerView = Camera.main;
+        //boss = GameObject.FindGameObjectWithTag("Enemy");
+
+
+        //bossHit = new UnityEvent();
     }
 
     //private void OnCollisionEnter(Collision collision)
     //{
     //    Debug.Log("Collided" + collision.transform.name);
-    //    if(collision.transform.name.ToLower().Contains("boss"))
+    //    if (collision.transform.name.ToLower().Contains("boss"))
     //    {
     //        Debug.Log("hit");
 
@@ -40,11 +53,22 @@ public class BulletScript : MonoBehaviour
 
         if (!gameObject)
             return;
-        if (other.tag == "enemy" && BossScript.hitCooldown == 0)
+        if (other.gameObject != null && other.tag == "enemy")
         {
-            //Debug.Log("hit");
-            BossScript.health -= bulletDamage;
-            Debug.Log("new boss health" + BossScript.health);
+            //var a = other.gameObject.GetComponent<BossScript>();
+            //Debug.Log("hit enemy");
+            //BossScript.health -= bulletDamage;
+            //bossHit.Invoke();
+            //Debug.Log(other.gameObject);
+            Destroy(gameObject);
+
+            other.gameObject.GetComponentInParent<Entity>().takeDamage(bulletDamage);
+
+
+            //a.takeDamage(3.0f);
+
+
+            //Debug.Log("new boss health" + BossScript.health);
 
 
             var floater = Instantiate(floatingTextPrefab, transform.position,
@@ -53,18 +77,23 @@ public class BulletScript : MonoBehaviour
             floater.GetComponent<TextMeshPro>().text = bulletDamage.ToString();
             //floater.GetComponent<TextMeshPro>().color.a = 
             floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
+
+
+
             //floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
 
-            BossScript.hitCooldown = BossScript.cooldownWhenHit;
-            Destroy(gameObject);
+            //BossScript.hitCooldown = BossScript.cooldownWhenHit;
+
+            //healthBarPositioning();
+
 
 
         }
-        else if (other.tag != "Player")
-        {
-            Debug.Log("hit solid");
-            GameObject.Destroy(GameObject.Find(transform.name));
-        }
+        //else if (other.tag != "Player")
+        //{
+        //    Debug.Log("hit solid");
+        //    GameObject.Destroy(GameObject.Find(transform.name));
+        //}
 
     }
 
@@ -80,18 +109,18 @@ public class BulletScript : MonoBehaviour
         //}
 
 
-        if (Time.time - lastDebug >= 1)
-        {
+        //if (Time.time - lastDebug >= 1)
+        //{
 
-            Debug.Log("forward " + transform.forward);
-            Debug.Log("bulletSpeed " + bulletSpeed);
-            Debug.Log("time " + Time.deltaTime);
-            Debug.Log(transform.forward * bulletSpeed * Time.deltaTime * 100000);
-            Debug.Log(transform.name);
-            Debug.Log(transform.position);
+        //    Debug.Log("forward " + transform.forward);
+        //    Debug.Log("bulletSpeed " + bulletSpeed);
+        //    Debug.Log("time " + Time.deltaTime);
+        //    Debug.Log(transform.forward * bulletSpeed * Time.deltaTime * 100000);
+        //    Debug.Log(transform.name);
+        //    Debug.Log(transform.position);
 
-            lastDebug = Time.time;
-        }
+        //    lastDebug = Time.time;
+        //}
         //Debug.Log("transform.forward " + transform.forward);
         //Debug.Log(bulletSpeed);
         //Debug.Log(Time.deltaTime);
