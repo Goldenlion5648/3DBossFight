@@ -13,10 +13,12 @@ public class BossScript : Entity
     //public static int cooldownWhenHit = 3;
     float lastJump;
     // Start is called before the first frame update
-    float rotateSpeed = .2f;
+    //float rotateSpeed = .2f;
     float spinTimer = 0f;
     float spinFrequency = .5f;
     float spinAmount = 2f;
+
+
 
     public UnityEvent bossHit;
     void Start()
@@ -25,7 +27,10 @@ public class BossScript : Entity
         //InvokeRepeating("rotate", .5f, .02f);
 
         InvokeRepeating("cooldownUpdater", 0, .1f);
-        this.Initialize(100, 50f);
+        this.Initialize(100, 3f);
+        this.damageOnTouch = 30.0f;
+
+
 
         //this.ini
 

@@ -13,6 +13,8 @@ public class Entity : MonoBehaviour
     public float hitCooldownMax { get; set; }
     public float hitCooldown { get; set; }
 
+    public float damageOnTouch { get; set; }
+
 
 
     public void Initialize(float maxHealth, float hitCooldownMax)
@@ -34,14 +36,25 @@ public class Entity : MonoBehaviour
         hitCooldown = Mathf.Max(hitCooldown - 1, 0);
     }
 
-    public void takeDamage(float damage)
+
+
+    public bool takeDamage(float damage)
     {
         if (hitCooldown == 0)
         {
             health -= damage;
             Debug.Log("new health" + health);
             hitCooldown = hitCooldownMax;
+
+            //Debug.Log("damaged object " + gameObject);
+
+            if (gameObject.GetComponent<HealthBarScript>() != null)
+                gameObject.GetComponent<HealthBarScript>().healthBarPositioning(health, startingHealth);
+
+            return true;
+
         }
+        return false;
 
     }
 

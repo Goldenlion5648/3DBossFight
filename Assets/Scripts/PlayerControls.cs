@@ -38,7 +38,7 @@ public class PlayerControls : Entity
         shotTime = Time.time;
         health = startingHealth;
 
-
+        this.Initialize(100, 14f);
 
     }
 
@@ -139,19 +139,32 @@ public class PlayerControls : Entity
 
         }
     }
-    //void tr
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Debug.Log(collision.gameObject.name);
-        if (collision.transform.tag == "enemy")
-        {
-            health -= 3;
-            Debug.Log("health " + health);
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    Debug.Log("touched " + other);
 
-        }
-        //collision.collider
-    }
+    //    if (other.gameObject != null && other.tag == "enemy")
+    //    {
+    //        gameObject.GetComponent<Entity>().takeDamage(other.gameObject.GetComponent<Entity>().damageOnTouch);
+    //        Debug.Log("player took damge, new health " + health);
+
+    //    }
+    //}
+    ////void tr
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log(collision.gameObject.name);
+    //    if (collision.transform.tag == "enemy")
+    //    {
+    //        gameObject.GetComponent<Entity>().takeDamage(collision.gameObject.GetComponent<Entity>().damageOnTouch);
+
+    //        Debug.Log("health " + health);
+
+    //    }
+    //    //collision.collider
+    //}
 
     void enemyDetection()
     {
@@ -167,11 +180,15 @@ public class PlayerControls : Entity
 
         //Debug.Log("transform pos " + transform.position);
 
-
-
+        RaycastHit hit;
         bool nearEnemy = Physics.Raycast(cam.position, cam.forward, 1.0f, mask);
         if (nearEnemy)
-            Debug.Log("nearEnemy: " + nearEnemy);
+        {
+            nearEnemy = Physics.Raycast(cam.position, cam.forward, out hit);
+            //Debug.Log("nearEnemy: " + nearEnemy);
+            //De
+            gameObject.GetComponent<Entity>().takeDamage(hit.collider.gameObject.GetComponentInParent<Entity>().damageOnTouch);
+        }
 
 
         //Debug.Log("nearEnemy" + nearEnemy);

@@ -62,7 +62,7 @@ public class BulletScript : MonoBehaviour
             //Debug.Log(other.gameObject);
             Destroy(gameObject);
 
-            other.gameObject.GetComponentInParent<Entity>().takeDamage(bulletDamage);
+            bool hitSuccessful = other.gameObject.GetComponentInParent<Entity>().takeDamage(bulletDamage);
 
 
             //a.takeDamage(3.0f);
@@ -70,13 +70,16 @@ public class BulletScript : MonoBehaviour
 
             //Debug.Log("new boss health" + BossScript.health);
 
+            if (hitSuccessful)
+            {
 
-            var floater = Instantiate(floatingTextPrefab, transform.position,
-                Quaternion.LookRotation(Camera.main.transform.forward));
+                var floater = Instantiate(floatingTextPrefab, transform.position,
+                    Quaternion.LookRotation(Camera.main.transform.forward));
 
-            floater.GetComponent<TextMeshPro>().text = bulletDamage.ToString();
-            //floater.GetComponent<TextMeshPro>().color.a = 
-            floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
+                floater.GetComponent<TextMeshPro>().text = bulletDamage.ToString();
+                //floater.GetComponent<TextMeshPro>().color.a = 
+                floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
+            }
 
 
 
@@ -89,11 +92,11 @@ public class BulletScript : MonoBehaviour
 
 
         }
-        //else if (other.tag != "Player")
-        //{
-        //    Debug.Log("hit solid");
-        //    GameObject.Destroy(GameObject.Find(transform.name));
-        //}
+        else if (other.tag != "Player")
+        {
+            Debug.Log("hit solid");
+            Destroy(gameObject);
+        }
 
     }
 
@@ -135,7 +138,7 @@ public class BulletScript : MonoBehaviour
         if (Vector3.Distance(transform.position, playerView.transform.position) > 25.0f && transform.name.Contains("OG") == false)
         {
             //Debug.Log("destroyed " + this.name);
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
         }
         //for (int i = 0; i < bulletList.Count; i++)
         //{
