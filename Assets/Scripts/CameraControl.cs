@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//Code by Colter B
+//Code by Colter B (Goldenlion5648)
 public class CameraControl : MonoBehaviour
 {
     // Start is called before the first frame update

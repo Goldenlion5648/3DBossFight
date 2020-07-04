@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Code by Colter B (Goldenlion5648)
 public class Entity : MonoBehaviour
 {
     //private float maxHealth;
@@ -45,6 +45,9 @@ public class Entity : MonoBehaviour
             health -= damage;
             Debug.Log("new health" + health);
             hitCooldown = hitCooldownMax;
+
+            Debug.Log("new health " + health);
+
 
             //Debug.Log("damaged object " + gameObject);
 

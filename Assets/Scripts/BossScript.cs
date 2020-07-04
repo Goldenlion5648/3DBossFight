@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-//Code by Colter B
+//Code by Colter B (Goldenlion5648)
 public class BossScript : Entity
 {
 

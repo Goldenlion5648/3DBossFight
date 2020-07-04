@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-//Code by Colter B
+using System;
+//Code by Colter B (Goldenlion5648)
 public class PlayerControls : Entity
 {
     public float movementSpeed = 10.0f;
@@ -18,14 +19,17 @@ public class PlayerControls : Entity
     public GameObject[] bulletPrefabs;
 
 
-    enum bulletType
+    public enum bulletType
     {
         Fire = 0, Water, Earth
     }
 
+    Dictionary<bulletType, float> bulletDamageMap = new Dictionary<bulletType, float>();
+
+
     int typesLength = (int)System.Enum.GetNames(typeof(bulletType)).Length;
 
-    bulletType curBulletType = bulletType.Fire;
+    public bulletType curBulletType = bulletType.Fire;
 
     public float time;
 
@@ -39,6 +43,13 @@ public class PlayerControls : Entity
         health = startingHealth;
 
         this.Initialize(100, 14f);
+
+        foreach (bulletType b in Enum.GetValues(typeof(bulletType)))
+        {
+            bulletDamageMap.Add(b, 3.0f);
+
+        }
+
 
     }
 
@@ -118,8 +129,14 @@ public class PlayerControls : Entity
             {
                 shotTime = Time.time;
 
-                Instantiate(bulletPrefabs[(int)curBulletType], Camera.main.transform.position,
+                var newBullet = Instantiate(bulletPrefabs[(int)curBulletType], Camera.main.transform.position,
                     Camera.main.transform.rotation);
+
+                newBullet.GetComponent<BulletScript>().bulletDamage = bulletDamageMap[curBulletType];
+                //bulletDamageMap[curBulletType] = Mathf.Max(Convert.ToSingle(Math.Pow((double)bulletDamageMap[curBulletType], .8)), .3f);
+                bulletDamageMap[curBulletType] *= .75f;
+                bulletDamageMap[curBulletType] = Math.Max(bulletDamageMap[curBulletType], .3f);
+
 
                 counter++;
             }
@@ -140,17 +157,17 @@ public class PlayerControls : Entity
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("touched " + other);
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("touched " + other);
 
-    //    if (other.gameObject != null && other.tag == "enemy")
-    //    {
-    //        gameObject.GetComponent<Entity>().takeDamage(other.gameObject.GetComponent<Entity>().damageOnTouch);
-    //        Debug.Log("player took damge, new health " + health);
+        if (other.gameObject != null && other.tag == "enemy")
+        {
+            gameObject.GetComponent<Entity>().takeDamage(other.gameObject.GetComponent<Entity>().damageOnTouch);
+            Debug.Log("player took damge, new health " + health);
 
-    //    }
-    //}
+        }
+    }
     ////void tr
 
     //private void OnCollisionEnter(Collision collision)
@@ -207,7 +224,7 @@ public class PlayerControls : Entity
         fireBullet();
         changeBulletType();
         relockToScreen();
-        enemyDetection();
+        //enemyDetection();
 
 
     }

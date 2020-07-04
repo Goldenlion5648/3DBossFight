@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Code by Colter B
+//Code by Colter B (Goldenlion5648)
 public class floatingTextScript : MonoBehaviour
 {
 

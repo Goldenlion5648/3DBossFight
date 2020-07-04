@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
-//Code by Colter B
+//Code by Colter B (Goldenlion5648)
 public class BulletScript : MonoBehaviour
 {
 
     //public static List<GameObject> bulletList;
     private float bulletSpeed = 40.0f;
-    private float bulletDamage = 5.0f;
+    //private float bulletDamage = 5.0f;
+    public float bulletDamage { get; set; }
 
     public Camera playerView;
 
@@ -18,13 +19,7 @@ public class BulletScript : MonoBehaviour
 
     private float lastDebug;
 
-    public UnityEvent bossHit;
-
     public Entity boss;
-
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -63,11 +58,7 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
 
             bool hitSuccessful = other.gameObject.GetComponentInParent<Entity>().takeDamage(bulletDamage);
-
-
             //a.takeDamage(3.0f);
-
-
             //Debug.Log("new boss health" + BossScript.health);
 
             if (hitSuccessful)
@@ -80,15 +71,9 @@ public class BulletScript : MonoBehaviour
                 //floater.GetComponent<TextMeshPro>().color.a = 
                 floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
             }
-
-
-
             //floater.GetComponent<Rigidbody>().AddExplosionForce(80f, other.transform.position, 50);
-
             //BossScript.hitCooldown = BossScript.cooldownWhenHit;
-
             //healthBarPositioning();
-
 
 
         }

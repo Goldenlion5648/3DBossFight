@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//Code by Colter B (Goldenlion5648)
 public class HealthBarScript : MonoBehaviour
 {
 
@@ -21,7 +22,7 @@ public class HealthBarScript : MonoBehaviour
 
         //foreground.sizeDelta = new Vector2(back.rect.width * back.transform.localScale.x *
         //    (health / startingHealth), foreground.sizeDelta.y);
-        Debug.Log(back.rect.width);
+        //Debug.Log(back.rect.width);
 
         foreground.sizeDelta = new Vector2(back.rect.width *
             (health / startingHealth), foreground.sizeDelta.y);
